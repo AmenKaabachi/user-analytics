@@ -1,0 +1,45 @@
+.styled-wrapper a {
+    display: inline-flex; /* Changed from 'flex' to 'inline-flex' to fit content */
+    justify-content: center; /* Center align the content */
+    align-items: center; /* Vertically center align the content */
+    background-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb); /* Gradient background */
+    border: none; /* Ensure no default borders */
+    border-radius: 8px; /* Smooth rounded corners */
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px; /* Subtle shadow */
+    box-sizing: border-box; /* Consistent sizing */
+    color: #ffffff; /* White text color */
+    font-size: 18px; /* Text size */
+    line-height: 1; /* Consistent line height */
+    padding: 12px 20px; /* Adjusted padding for better spacing */
+    text-decoration: none; /* Remove underline from links */
+    user-select: none; /* Prevent text selection */
+    cursor: pointer; /* Add pointer cursor */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    width: auto; /* Fit content width */
+    min-width: 140px; /* Enforce a reasonable minimum width */
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+  
+  .styled-wrapper a:active,
+  .styled-wrapper a:hover {
+    outline: none; /* Remove focus outline */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+  }
+  
+  .styled-wrapper a span {
+    background-color: rgba(151, 65, 252, 0.4) 0 20px 40px -5px; /* Semi-transparent background for contrast */
+    padding: 10px 18px; /* Adjusted padding */
+    border-radius: 6px; /* Inner content rounding */
+    width: 100%; /* Match parent width */
+    height: 100%; /* Match parent height */
+    transition: background 0.3s ease; /* Smooth background transition */
+  }
+  
+  .styled-wrapper a:hover span {
+    background-color: transparent; /* Remove background on hover for clean effect */
+  }
+  
+  .styled-wrapper a:active {
+    transform: scale(0.95); /* Slight scale down on active click */
+  }
+  

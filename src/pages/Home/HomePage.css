@@ -3,7 +3,8 @@
 }
 
 .hero { 
-  background: linear-gradient(135deg, #6c5ce7 0%, #00bcd4 100%);
+  /*background: linear-gradient(135deg, #6c5ce7 0%, #00bcd4 100%);*/
+background: linear-gradient(135deg, #6c5ce7 0%, #006dd4 100%);
   color: white;
   min-height: 100vh;
   display: flex;
@@ -17,6 +18,13 @@
   font-weight: 700;
   margin-bottom: 1.5rem;
 }
+
+.hero-button {
+  max-width: 200px; /* Limit the maximum width */
+  width: auto; /* Let the button adjust to content size */
+  display: inline-block; /* Prevent full-width behavior */
+}
+
 
 .hero p.lead {
   font-size: 1.5rem; /* Increase font size */

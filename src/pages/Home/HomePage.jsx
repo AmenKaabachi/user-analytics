@@ -1,7 +1,8 @@
-import { Container, Row, Col, Button, Card } from 'react-bootstrap'
+import { Container, Row, Col, Card } from 'react-bootstrap'
 import { FaChartLine, FaUsers, FaClock } from 'react-icons/fa'
 import './HomePage.css'
 import analyticsDashboardImg from '../../assets/analytics-dashboard.png';
+import NeonButton from '../../components/NeonButton/NeonButton';
 
 function HomePage() {
   return (
@@ -14,9 +15,8 @@ function HomePage() {
               <p className="lead">
                 Powerful analytics tools to understand your users and grow your business
               </p>
-              <Button variant="primary" size="lg" href="#features">
-                Get Started
-              </Button>
+              <NeonButton href="#features" className="btn btn-primary mx-auto hero-button">Get Started</NeonButton>
+
             </Col>
             <Col md={6} className="text-center">
               <img src={analyticsDashboardImg} alt="Analytics Dashboard" className="dashboard-image img-fluid" />
@@ -80,7 +80,7 @@ function HomePage() {
                     <li>Basic analytics</li>
                     <li>Email support</li>
                   </ul>
-                  <Button variant="outline-primary">Choose Plan</Button>
+                  <NeonButton href="#">Choose Plan</NeonButton>
                 </Card.Body>
               </Card>
             </Col>
@@ -94,7 +94,7 @@ function HomePage() {
                     <li>Advanced analytics</li>
                     <li>Priority support</li>
                   </ul>
-                  <Button variant="primary">Choose Plan</Button>
+                  <NeonButton href="#">Choose Plan</NeonButton>
                 </Card.Body>
               </Card>
             </Col>
@@ -108,7 +108,7 @@ function HomePage() {
                     <li>Custom solutions</li>
                     <li>24/7 support</li>
                   </ul>
-                  <Button variant="outline-primary">Contact Us</Button>
+                  <NeonButton href="#">Contact Us</NeonButton>
                 </Card.Body>
               </Card>
             </Col>
