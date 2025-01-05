@@ -8,8 +8,8 @@ function HomePage() {
     <div className="home-page">
       <section className="hero">
         <Container>
-          <Row className="align-items-center min-vh-100">
-            <Col md={6}>
+          <Row className="dashboard-container align-items-center min-vh-100">
+            <Col md={6} className="text-md-left">
               <h1>Transform Your Data into Insights</h1>
               <p className="lead">
                 Powerful analytics tools to understand your users and grow your business
@@ -18,8 +18,8 @@ function HomePage() {
                 Get Started
               </Button>
             </Col>
-            <Col md={6}>
-              <img src={analyticsDashboardImg} alt="Analytics Dashboard" className="img-fluid" />
+            <Col md={6} className="text-center">
+              <img src={analyticsDashboardImg} alt="Analytics Dashboard" className="dashboard-image img-fluid" />
             </Col>
           </Row>
         </Container>

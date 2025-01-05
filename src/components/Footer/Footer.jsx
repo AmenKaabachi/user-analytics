@@ -7,7 +7,7 @@ function Footer() {
       <Container>
         <Row>
           <Col md={4}>
-            <h5>AnalyticsPro</h5>
+            <h5>UsageLens</h5>
             <p>Advanced analytics solutions for your business needs</p>
           </Col>
           <Col md={4}>
@@ -20,13 +20,13 @@ function Footer() {
           </Col>
           <Col md={4}>
             <h5>Contact Us</h5>
-            <p>Email: info@analyticspro.com</p>
+            <p>Email: info@UsageLens.com</p>
             <p>Phone: (555) 123-4567</p>
           </Col>
         </Row>
         <Row className="mt-3">
           <Col className="text-center">
-            <p className="mb-0">&copy; 2024 AnalyticsPro. All rights reserved.</p>
+            <p className="mb-0">&copy; 2025 UsageLens. All rights reserved.</p>
           </Col>
         </Row>
       </Container>

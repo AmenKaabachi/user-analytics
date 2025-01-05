@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <BsNavbar bg="dark" variant="dark" expand="lg" fixed="top">
       <Container>
-        <BsNavbar.Brand as={Link} to="/">AnalyticsPro</BsNavbar.Brand>
+        <BsNavbar.Brand as={Link} to="/">UsageLens</BsNavbar.Brand>
         <BsNavbar.Toggle />
         <BsNavbar.Collapse>
           <Nav className="me-auto">

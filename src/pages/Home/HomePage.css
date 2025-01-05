@@ -2,18 +2,43 @@
   padding-top: 56px;
 }
 
-.hero {
-  background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+.hero { 
+  background: linear-gradient(135deg, #6c5ce7 0%, #00bcd4 100%);
   color: white;
   min-height: 100vh;
   display: flex;
   align-items: center;
+  width: 100%;
+  padding: 0;
 }
 
-.hero h1 {
-  font-size: 3.5rem;
+.hero h1 {  
+  font-size: 4rem; /* Increase font size */
   font-weight: 700;
   margin-bottom: 1.5rem;
+}
+
+.hero p.lead {
+  font-size: 1.5rem; /* Increase font size */
+}
+
+.dashboard-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the columns */
+  width: 100%; /* Ensure container takes full width */
+  padding: 0; /* Adjust padding as needed */
+}
+
+.dashboard-container .col-md-6 {
+  flex: 1; /* Allow columns to grow equally */
+  max-width: 100%; /* Ensure columns take up to 50% width */
+}
+
+.dashboard-image {
+  max-width: 100%; /* Allow the image to scale responsively */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Ensure the image is a block element */
 }
 
 .feature-card {
