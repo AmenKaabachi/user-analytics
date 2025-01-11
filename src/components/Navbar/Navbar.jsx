@@ -4,15 +4,15 @@ import './Navbar.css'
 
 function Navbar() {
   return (
-    <BsNavbar bg="dark" variant="dark" expand="lg" fixed="top">
+    <BsNavbar bg="light" variant="dark" expand="lg" fixed="top">
       <Container>
-        <BsNavbar.Brand as={Link} to="/">UsageLens</BsNavbar.Brand>
+        <BsNavbar.Brand as={Link} to="/analytics">UsageLens</BsNavbar.Brand>
         <BsNavbar.Toggle />
         <BsNavbar.Collapse>
           <Nav className="me-auto">
             <Nav.Link href="#features">Features</Nav.Link>
             <Nav.Link href="#pricing">Pricing</Nav.Link>
-            <Nav.Link href="#contact">Contact</Nav.Link>
+            <Nav.Link href="#footer">Contact</Nav.Link> {/* Update href to lead to footer */}
           </Nav>
           <Nav>
             <Link to="/login" className="nav-link">Log In</Link>

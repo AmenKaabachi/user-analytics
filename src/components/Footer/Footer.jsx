@@ -3,7 +3,7 @@ import './Footer.css'
 
 function Footer() {
   return (
-    <footer className="footer bg-dark text-light py-4">
+    <footer id="footer" className="footer bg-light text-dark py-4"> {/* Add id to footer */}
       <Container>
         <Row>
           <Col md={4}>
@@ -15,7 +15,7 @@ function Footer() {
             <ul className="list-unstyled">
               <li><a href="#features">Features</a></li>
               <li><a href="#pricing">Pricing</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="#footer">Contact</a></li>
             </ul>
           </Col>
           <Col md={4}>

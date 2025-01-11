@@ -1,12 +1,16 @@
 .footer {
+  background-color: #f8f9fa; /* Slightly darker shade of white */
+  color: rgb(33, 67, 228); /* Update text color */
   margin-top: auto;
+  border-top: 5px solid; /* Add border */
+  border-image: var(--linearPrimaryAccent) 1; /* Use gradient for border */
 }
 
 .footer a {
-  color: #fff;
+  color: rgb(33, 67, 228); /* Update link color */
   text-decoration: none;
 }
 
 .footer a:hover {
-  color: #0d6efd;
+  color: rgb(171, 95, 236); /* Update hover link color */
 }

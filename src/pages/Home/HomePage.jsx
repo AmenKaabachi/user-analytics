@@ -8,20 +8,13 @@ function HomePage() {
   return (
     <div className="home-page">
       <section className="hero">
-        <Container>
-          <Row className="dashboard-container align-items-center min-vh-100">
-            <Col md={6} className="text-md-left">
-              <h1>Transform Your Data into Insights</h1>
-              <p className="lead">
-                Powerful analytics tools to understand your users and grow your business
-              </p>
-              <NeonButton href="#features" className="btn btn-primary mx-auto hero-button">Get Started</NeonButton>
-
-            </Col>
-            <Col md={6} className="text-center">
-              <img src={analyticsDashboardImg} alt="Analytics Dashboard" className="dashboard-image img-fluid" />
-            </Col>
-          </Row>
+        <Container className="d-flex flex-column align-items-center justify-content-center text-center min-vh-100">
+          <h1>Uncover User <span className="highlight">Behavior</span> Through Data</h1>
+          <p className="lead">
+            Transform raw interactions into actionable insights that drive better product decisions.
+          </p>
+          <NeonButton href="#features" className="btn btn-primary mx-auto hero-button">Get Started</NeonButton>
+          <img src={analyticsDashboardImg} alt="Analytics Dashboard" className="dashboard-image img-fluid mt-4" />
         </Container>
       </section>
 
