@@ -1,11 +1,14 @@
 .navbar {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  background-color: white; /* White background */
+  font-weight: bold;
 }
 
 .navbar-brand {
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 3rem;
+  background: var(--linearPrimaryAccent); /* Use gradient background */
+  -webkit-background-clip: text; /* Clip the background to the text */
+  -webkit-text-fill-color: transparent; /* Make the text transparent to show the gradient */
 }
 
 .navbar-brand, .nav-link {
@@ -19,8 +22,14 @@
 .btn-primary {
   background: var(--linearPrimaryAccent) !important; /* Use gradient background */
   border: none; /* Remove border */
+  transition: background 0.3s ease; /* Smooth transition for background color */
 }
 
 .btn-primary:hover {
   background: var(--linearSecondaryAccent) !important; /* Use gradient background on hover */
+}
+
+.site-logo {
+  height: 4rem; /* Increase the logo size */
+  max-height: 100%; /* Ensure the logo does not increase the navbar height */
 }
