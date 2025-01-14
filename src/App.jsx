@@ -1,7 +1,9 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
+
 import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Auth/Login/LoginPage';
 import DashboardPage from '../../../Dashboards/coreui/src/views/dashboard/Dashboard';
