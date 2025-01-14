@@ -7,7 +7,7 @@ function Navbar() {
   return (
     <BsNavbar bg="light" variant="dark" expand="lg" fixed="top">
       <Container>
-        <BsNavbar.Brand as={Link} to="/analytics" className="d-flex align-items-center">
+        <BsNavbar.Brand as={Link} to="/" className="d-flex align-items-center">
           <img src={siteLogo} alt="UsageLens Logo" className="site-logo" />
           <span className="ms-1" style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>UsageLens</span>
         </BsNavbar.Brand>
