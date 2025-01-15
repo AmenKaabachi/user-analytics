@@ -40,7 +40,7 @@
   color: white; /* Ensure text color stays white */
 }
 
-.hero h1 .highlight {
+.hero h1 .highlight_behave {
   color: rgb(197, 137, 249); /* Darker and closer to purple */
 }
 

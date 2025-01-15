@@ -3,17 +3,29 @@ import { FaChartLine, FaUsers, FaClock } from 'react-icons/fa'
 import './HomePage.css'
 import analyticsDashboardImg from '../../assets/analytics-dashboard.png';
 import NeonButton from '../../components/NeonButton/NeonButton';
+import Navbar from '../../components/Navbar/Navbar'; // Import Navbar component
+import Footer from '../../components/Footer/Footer'; // Import Footer component
 
 function HomePage() {
+  const scrollToFeatures = () => {
+    const featuresSection = document.getElementById('features');
+    if (featuresSection) {
+      featuresSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  
   return (
+    
     <div className="home-page">
+      <Navbar /> {/* Add Navbar component */}
       <section className="hero">
         <Container className="d-flex flex-column align-items-center justify-content-center text-center min-vh-100">
-          <h1>Uncover User <span className="highlight">Behavior</span> Through Data</h1>
+          <h1>Uncover User <span className="highlight_behave">Behavior</span> Through Data</h1>
           <p className="lead">
             Transform raw interactions into actionable insights that drive better product decisions.
           </p>
-          <NeonButton href="#features" className="btn btn-primary mx-auto hero-button">Get Started</NeonButton>
+          <NeonButton onClick={scrollToFeatures} className="btn btn-primary mx-auto hero-button">Get Started</NeonButton>
           <img src={analyticsDashboardImg} alt="Analytics Dashboard" className="dashboard-image img-fluid mt-4" />
         </Container>
       </section>
@@ -108,6 +120,7 @@ function HomePage() {
           </Row>
         </Container>
       </section>
+      <Footer /> {/* Add Footer component */}
     </div>
   )
 }

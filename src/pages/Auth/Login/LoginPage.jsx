@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { Container, Alert, Button, Form } from 'react-bootstrap';
-
 import axios from 'axios';
-
 import './LoginPage.css';
 
 // Login Page Component
@@ -21,21 +18,24 @@ function LoginPage({ onLoginSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent Default Form Submission
     setError(''); // Reset Error State
-
+  
     // Validate Input Fields
     if (!email || !password) {
       setError('Please fill in both email and password.');
       return;
     }
-
+  
     try {
       // Send Login Data to Backend
-      const response = await axios.post('http://localhost:5000/login', { email, password });
-
+      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+  
       // Check Login Success Response
-      if (response.data.message === 'Login successful') {
-        onLoginSuccess(); // Notify Parent Component (App.jsx)
-        navigate('/dashboard'); // Navigate to Dashboard
+      if (response.data.token) {
+        // Save the token to localStorage
+        localStorage.setItem('token', response.data.token);
+  
+        onLoginSuccess(); // Notify Parent Component (if needed)
+        navigate('/profile'); // Navigate to Profile page
       } else {
         setError(response.data.message || 'Invalid credentials.'); // Handle Login Errors
       }
@@ -45,6 +45,7 @@ function LoginPage({ onLoginSuccess }) {
       setError('Something went wrong. Please try again.');
     }
   };
+  
 
   return (
     <div className="auth-page">

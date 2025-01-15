@@ -1,9 +1,22 @@
-import { Navbar as BsNavbar, Container, Nav, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import './Navbar.css'
-import siteLogo from '../../assets/site-logo.png'
+import { Navbar as BsNavbar, Container, Nav, Button } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import './Navbar.css';
+import siteLogo from '../../assets/site-logo.png';
 
 function Navbar() {
+  const navigate = useNavigate();
+
+  const handleNavClick = (sectionId) => {
+    if (window.location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <BsNavbar bg="light" variant="dark" expand="lg" fixed="top">
       <Container>
@@ -14,21 +27,20 @@ function Navbar() {
         <BsNavbar.Toggle />
         <BsNavbar.Collapse>
           <Nav className="me-auto">
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
-            <Nav.Link href="#footer">Contact</Nav.Link>
+            <Nav.Link onClick={() => handleNavClick('features')}>Features</Nav.Link>
+            <Nav.Link onClick={() => handleNavClick('pricing')}>Pricing</Nav.Link>
+            <Nav.Link onClick={() => handleNavClick('footer')}>Contact</Nav.Link>
           </Nav>
           <Nav>
             <Link to="/login" className="nav-link">Log In</Link>
             <Link to="/signup" className="btn btn-primary">Sign Up</Link>
-<Link to="/dashboard" className="btn btn-secondary ms-2" style={{ backgroundColor: 'blue', color: 'white' }}>Dashboard</Link>
-<Link to="/store" className="btn btn-dark ms-2 text-white">Store</Link>
+            <Link to="/dashboard" className="btn btn-secondary ms-2" style={{ backgroundColor: 'blue', color: 'white' }}>Dashboard</Link>
+            <Link to="/store" className="btn btn-dark ms-2 text-white">Store</Link>
           </Nav>
         </BsNavbar.Collapse>
       </Container>
     </BsNavbar>
-    
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

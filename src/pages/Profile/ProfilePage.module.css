@@ -1,0 +1,81 @@
+.profilePage {
+  padding-top: 5rem;
+  background: linear-gradient(to bottom, rgba(33, 67, 228, 0.8), rgba(172, 139, 241, 0.8)), rgb(255, 255, 255);
+  height: 40vh; /* Increase the height of the gradient */
+}
+
+.profileContainer {
+  margin-top: 5rem;
+}
+
+.profileCard {
+  border: none;
+  background-color: #e6e6fa;
+  padding-left: 1.4rem;
+  padding-top: 0rem;
+  margin-top: 5rem;
+}
+
+.tabs .nav-tabs {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.tabs .nav-link {
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: normal;
+  text-transform: none;
+  position: relative;
+}
+
+.tabs .nav-item {
+  position: relative;
+}
+
+.underline {
+  position: absolute;
+  left: -23.4rem;
+  top: 0; 
+  height: 4px;
+  background-color: #007bff;
+  transition: transform 0.3s ease, width 0.3s ease;
+}
+
+.profileContent {
+  margin-top: 20px;
+}
+
+.avatarSection {
+  text-align: center;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.infoTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.infoTable td {
+  padding: 10px;
+  text-align: left;
+}
+
+.infoRowLight {
+  background-color: #f8f9fa;
+}
+
+.infoRowDark {
+  background-color: #e2e6ea;
+}
+
+.infoSection {
+  padding-left: 20px;
+}
