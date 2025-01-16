@@ -63,10 +63,8 @@ function ProfilePage() {
       }
 
       const formData = new FormData();
-      formData.append('company_name', 'olap'); // Hardcoded for testing
-      formData.append('email', 'aa@gmail.com'); // Hardcoded for testing
-
-      // if (editForm.avatar) formData.append('avatar', editForm.avatar); // Commenting out avatar for now
+      formData.append('company_name', editForm.companyName); // Use value from state
+      formData.append('email', editForm.email); // Use value from state
 
       // Debugging output: log formData entries before the request
       for (let [key, value] of formData.entries()) {
