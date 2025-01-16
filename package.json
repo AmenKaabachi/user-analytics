@@ -11,10 +11,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    
     "server": "nodemon backend/app.js",
-    "client": "cd src && npm run dev", 
-    "start": "npm run server" 
+    "client": "cd src && npm run dev",
+    "start": "npm run server"
   },
   "dependencies": {
     "@babel/plugin-syntax-flow": "^7.26.0",
@@ -23,12 +22,12 @@
     "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
-    "chanthi  e": "^1.1.12",
     "cors": "^2.8.5",
     "d3": "^7.9.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "^3.12.0",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.1",

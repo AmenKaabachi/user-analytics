@@ -1,11 +1,19 @@
 import mysql from 'mysql2';
 
 // Create a connection to the MySQL database
+
 const db = mysql.createConnection({
+  /*
+  host: 'localhost',
+  user: 'root', 
+  password: '',
+  database: 'analytics'
+  */
   host: process.env.DB_HOST, // Database host
   user: 'root', // Database user
   password: process.env.DB_PASSWORD, // Database password
-  database: process.env.DB_NAME // Database name
+  database: 'analytics' // Database name
+
 });
 
 // Connect to the database and log any errors

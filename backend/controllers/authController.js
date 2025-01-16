@@ -65,8 +65,8 @@ export const signup = async (req, res) => {
 export const updateProfile = async (req, res) => {
   const userId = req.user.id; // Get the user ID from the token (authenticated user)
   const { company_name, email } = req.body; // Destructure new company name and email from request body
-
-  console.log('Updating profile for user ID:', userId,' With Name :',company_name); // Log the user ID being updated
+  console.log('Request Body:', req.body);
+  console.log('Updating profile for user:', userId, company_name, email);
 
   try {
     // Use the userService to update the user profile

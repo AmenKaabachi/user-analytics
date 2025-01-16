@@ -8,6 +8,8 @@ import noAvatarImage from '../../assets/no-avatar.png';
 
 function ProfilePage() {
   const underlineRef = useRef(null);
+  
+  // 1. State Management
   const [user, setUser] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -18,6 +20,7 @@ function ProfilePage() {
     // avatar: null, // Commenting out avatar for now
   });
 
+  // 2. Fetch user profile data on page load
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
@@ -40,6 +43,7 @@ function ProfilePage() {
     fetchUserProfile();
   }, []);
 
+  // 3. Handle tab selection for active tab navigation
   const handleTabSelect = (k) => {
     const tabTitle = document.getElementById(`tab-title-${k}`).getBoundingClientRect();
     const underline = underlineRef.current;
@@ -48,6 +52,7 @@ function ProfilePage() {
     setKey(k);
   };
 
+  // 4. Handle form submission for editing profile
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -58,21 +63,25 @@ function ProfilePage() {
       }
 
       const formData = new FormData();
-      formData.append('company_name', editForm.companyName);
-      formData.append('email', editForm.email);
+      formData.append('company_name', 'olap'); // Hardcoded for testing
+      formData.append('email', 'aa@gmail.com'); // Hardcoded for testing
+
       // if (editForm.avatar) formData.append('avatar', editForm.avatar); // Commenting out avatar for now
 
-      // Debugging output
+      // Debugging output: log formData entries before the request
       for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
+        console.log(`FormData: ${key}: ${value}`);
       }
 
-      await axios.put('http://localhost:5000/api/auth/profile', formData, {
+      // Ensure that the request is correctly formed and headers are set
+      const response = await axios.put('http://localhost:5000/api/auth/profile', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
+
+      console.log('Response:', response); // Debugging the response
 
       // Update user data after edit
       setUser((prevUser) => ({
@@ -92,23 +101,31 @@ function ProfilePage() {
     }
   };
 
+  // 5. Handle input change for form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditForm({ ...editForm, [name]: value });
   };
 
+  // 6. Handle file change for avatar upload
   const handleFileChange = (e) => {
     setEditForm({ ...editForm, avatar: e.target.files[0] });
   };
 
+  // Fix: Check and log editForm values before submission to ensure they are populated correctly
+  console.log('Edit Form:', editForm); // Fix
+
+  // 7. Render error message if any
   if (errorMessage) {
     return <div className={styles.errorMessage}>{errorMessage}</div>;
   }
 
+  // 8. Render loading message if user data is not yet loaded
   if (!user) {
     return <div className={styles.loadingMessage}>Loading...</div>;
   }
 
+  // 9. Render profile page UI
   return (
     <div className={`${styles.profilePage} mt-4`}>
       <Navbar />
