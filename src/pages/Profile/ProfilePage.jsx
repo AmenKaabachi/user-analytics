@@ -1,21 +1,29 @@
 import { useEffect, useState, useRef } from 'react';
-import { Container, Row, Col, Card, Tabs, Tab } from 'react-bootstrap';
+import { Container, Row, Col, Card, Tabs, Tab, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import Navbar from '../../components/Navbar/Navbar';
-import styles from './ProfilePage.module.css'; // Import CSS module
+import styles from './ProfilePage.module.css';
+
+import noAvatarImage from '../../assets/no-avatar.png';
 
 function ProfilePage() {
   const underlineRef = useRef(null);
   const [user, setUser] = useState(null);
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [key, setKey] = useState('profile');
+  const [editForm, setEditForm] = useState({
+    companyName: '',
+    email: '',
+    // avatar: null, // Commenting out avatar for now
+  });
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
         const token = localStorage.getItem('token'); // Get JWT token from local storage
         if (!token) {
-          setError('No token found. Please log in again.');
+          setErrorMessage('No token found. Please log in again.');
           return;
         }
 
@@ -25,22 +33,13 @@ function ProfilePage() {
         setUser(response.data);
       } catch (err) {
         console.error('Error fetching user profile:', err);
-        setError('Failed to load user profile.');
+        setErrorMessage('Failed to load user profile.');
       }
     };
 
     fetchUserProfile();
   }, []);
 
-  if (error) {
-    return <div className={styles.errorMessage}>{error}</div>;
-  }
-
-  if (!user) {
-    return <div className={styles.loadingMessage}>Loading...</div>;
-  }
-
-  // Function to handle tab selection and underline movement
   const handleTabSelect = (k) => {
     const tabTitle = document.getElementById(`tab-title-${k}`).getBoundingClientRect();
     const underline = underlineRef.current;
@@ -48,6 +47,67 @@ function ProfilePage() {
     underline.style.transform = `translateX(${tabTitle.left}px)`;
     setKey(k);
   };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setErrorMessage('No token found. Please log in again.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('company_name', editForm.companyName);
+      formData.append('email', editForm.email);
+      // if (editForm.avatar) formData.append('avatar', editForm.avatar); // Commenting out avatar for now
+
+      // Debugging output
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+
+      await axios.put('http://localhost:5000/api/auth/profile', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      // Update user data after edit
+      setUser((prevUser) => ({
+        ...prevUser,
+        company_name: editForm.companyName,
+        email: editForm.email,
+      }));
+
+      // Set success message
+      setSuccessMessage('Profile edited successfully!');
+      setErrorMessage(''); // Clear error message
+
+    } catch (err) {
+      console.error('Error updating profile:', err);
+      setErrorMessage('Failed to update profile.');
+      setSuccessMessage(''); // Clear success message in case of error
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditForm({ ...editForm, [name]: value });
+  };
+
+  const handleFileChange = (e) => {
+    setEditForm({ ...editForm, avatar: e.target.files[0] });
+  };
+
+  if (errorMessage) {
+    return <div className={styles.errorMessage}>{errorMessage}</div>;
+  }
+
+  if (!user) {
+    return <div className={styles.loadingMessage}>Loading...</div>;
+  }
 
   return (
     <div className={`${styles.profilePage} mt-4`}>
@@ -63,6 +123,7 @@ function ProfilePage() {
                   onSelect={handleTabSelect}
                   className={styles.tabs}
                 >
+                  {/* Profile Tab */}
                   <Tab
                     eventKey="profile"
                     title={<strong id="tab-title-profile">Profile</strong>}
@@ -71,8 +132,8 @@ function ProfilePage() {
                       <Row>
                         <Col md={4} className={styles.avatarSection}>
                           <img
-                            src="https://via.placeholder.com/150"
-                            alt="Profile Avatar"
+                            src={user.avatar ? user.avatar : noAvatarImage}
+                            alt={user.avatar ? "User Avatar" : "No Avatar Available"}
                             className={styles.avatar}
                           />
                         </Col>
@@ -88,12 +149,8 @@ function ProfilePage() {
                                 <td>{user.email}</td>
                               </tr>
                               <tr className={styles.infoRowLight}>
-                                <td><strong>Phone Number:</strong></td>
-                                <td>{user.phone_number}</td>
-                              </tr>
-                              <tr className={styles.infoRowDark}>
-                                <td><strong>Address:</strong></td>
-                                <td>{user.address}</td>
+                                <td><strong>Status:</strong></td>
+                                <td>Active</td>
                               </tr>
                             </tbody>
                           </table>
@@ -102,24 +159,63 @@ function ProfilePage() {
                     </div>
                   </Tab>
 
+                  {/* Edit Profile Tab */}
                   <Tab
                     eventKey="editProfile"
                     title={<strong id="tab-title-editProfile">Edit Profile</strong>}
                   >
                     <div className={styles.tabContent}>
-                      <p>This section is under construction.</p>
+                      <Form onSubmit={handleEditSubmit}>
+                        <Form.Group controlId="formCompanyName">
+                          <Form.Label><strong>Company Name</strong></Form.Label>
+                          <Form.Control
+                            type="text"
+                            name="companyName"
+                            value={editForm.companyName}
+                            onChange={handleInputChange}
+                            required
+                          />
+                        </Form.Group>
+                        <Form.Group controlId="formEmail">
+                          <Form.Label><strong>Email</strong></Form.Label>
+                          <Form.Control
+                            type="email"
+                            name="email"
+                            value={editForm.email}
+                            onChange={handleInputChange}
+                            required
+                          />
+                        </Form.Group>
+                        {/* Commenting out avatar field for now */}
+                        {/* <Form.Group controlId="formAvatar">
+                          <Form.Label>Avatar</Form.Label>
+                          <Form.Control
+                            type="file"
+                            name="avatar"
+                            onChange={handleFileChange}
+                            accept="image/*"
+                          />
+                        </Form.Group> */}
+                        <Button variant="primary" type="submit" className="mt-3">
+                          Save Changes
+                        </Button>
+                        
+                        {/* Success or Error message */}
+                        {successMessage && (
+                          <div style={{ color: '#32CD32', fontSize: '16px', fontWeight: 'bold', marginTop: '10px' }}>
+                            {successMessage}
+                          </div>
+                        )}
+                        {errorMessage && (
+                          <div style={{ color: '#8B0000', fontSize: '16px', fontWeight: 'bold', marginTop: '10px' }}>
+                            {errorMessage}
+                          </div>
+                        )}
+                      </Form>
                     </div>
                   </Tab>
 
-                  <Tab
-                    eventKey="phoneVerification"
-                    title={<strong id="tab-title-phoneVerification">Phone Verification</strong>}
-                  >
-                    <div className={styles.tabContent}>
-                      <p>This section is under construction.</p>
-                    </div>
-                  </Tab>
-
+                  {/* Placeholder for other tabs */}
                   <Tab
                     eventKey="resetPassword"
                     title={<strong id="tab-title-resetPassword">Reset Password</strong>}

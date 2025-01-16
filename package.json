@@ -10,7 +10,11 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    
+    "server": "nodemon backend/app.js",
+    "client": "cd src && npm run dev", 
+    "start": "npm run server" 
   },
   "dependencies": {
     "@babel/plugin-syntax-flow": "^7.26.0",
@@ -19,7 +23,7 @@
     "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
-    "chance": "^1.1.12",
+    "chanthi  e": "^1.1.12",
     "cors": "^2.8.5",
     "d3": "^7.9.0",
     "dotenv": "^16.4.7",

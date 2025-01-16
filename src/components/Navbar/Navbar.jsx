@@ -18,6 +18,7 @@ function Navbar() {
   };
 
   return (
+    <div>
     <BsNavbar bg="light" variant="dark" expand="lg" fixed="top">
       <Container>
         <BsNavbar.Brand as={Link} to="/" className="d-flex align-items-center">
@@ -40,6 +41,7 @@ function Navbar() {
         </BsNavbar.Collapse>
       </Container>
     </BsNavbar>
+    </div>
   );
 }
 

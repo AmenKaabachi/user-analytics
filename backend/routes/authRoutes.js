@@ -1,43 +1,32 @@
 import express from 'express';
-import { login, signup } from '../controllers/authController.js'; // Import the login and signup functions
-import { authenticateToken } from '../middleware/authMiddleware.js'; // Import the authentication middleware (if needed)
-import db from '../config/db.js'; // Import the database configuration
+import { login, signup, updateProfile } from '../controllers/authController.js'; // Import the controller functions
+import { authenticateToken } from '../middleware/authMiddleware.js'; // Import the authentication middleware
+import * as userService from '../services/userService.js'; // Import the user service
 
 const router = express.Router();
 
 // Route for user login
-router.post('/login', (req, res, next) => {
-  console.log('Login route hit');
-  next();
-}, login);
+router.post('/login', login);
 
 // Route for user signup
-router.post('/signup', (req, res, next) => {
-  console.log('Signup route hit');
-  next();
-}, signup);
+router.post('/signup', signup);
 
 // Route to get user profile
-router.get('/profile', authenticateToken, (req, res) => {
+router.get('/profile', authenticateToken, async (req, res) => {
   const userId = req.user.id; // Get user ID from the token
-
-  db.query('SELECT company_name, email, password FROM users WHERE id = ?', [userId], (err, results) => {
-    if (err) {
-      console.error('Error fetching user profile:', err);
-      return res.status(500).json({ message: 'Failed to load user profile.' });
+  try {
+    const userProfile = await userService.getUserProfile(userId);
+    if (userProfile.length === 0) {
+      return res.status(404).json({ message: 'User not found.' });
     }
-
-    if (results.length === 0) {
-      return res.status(404).json({ message: 'User not found.' }); // User not found
-    }
-
-    res.json(results[0]); // Send user profile data
-  });
+    res.json(userProfile[0]); // Send user profile data
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+    res.status(500).json({ message: 'Failed to load user profile.' });
+  }
 });
 
-// Example of a protected route (optional)
-// router.get('/protected', authenticateToken, (req, res) => {
-//   res.json({ message: 'This is a protected route', user: req.user });
-// });
+// Route to update user profile
+router.put('/profile', authenticateToken, updateProfile);
 
 export default router; // Export the router to be used in the main app
