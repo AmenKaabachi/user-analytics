@@ -1,5 +1,5 @@
 import express from 'express';
-import { login, signup, updateProfile } from '../controllers/authController.js'; // Import the controller functions
+import { login, signup, updateProfile, resetPassword } from '../controllers/authController.js'; // Import the controller functions
 import { authenticateToken } from '../middleware/authMiddleware.js'; // Import the authentication middleware
 import * as userService from '../services/userService.js'; // Import the user service
 
@@ -27,6 +27,15 @@ router.get('/profile', authenticateToken, async (req, res) => {
 });
 
 // Route to update user profile
-router.put('/profile', authenticateToken, updateProfile);
+router.put('/profile', authenticateToken, (req, res, next) => {
+  // Log the request body
+  console.log('Request Body at Router Level:', req.body);
+
+  // Proceed to the next middleware or route handler
+  next();
+}, updateProfile);
+
+// Route to reset user password
+router.put('/reset-password', authenticateToken, resetPassword);
 
 export default router; // Export the router to be used in the main app

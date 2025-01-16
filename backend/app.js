@@ -9,7 +9,12 @@ const app = express();
 
 // Middleware Configuration
 app.use(cors()); // Use default CORS middleware
-app.use(express.json()); // Parse JSON requests
+
+// Middleware to parse JSON request bodies
+app.use(express.json());
+
+// Middleware to parse URL-encoded request bodies
+app.use(express.urlencoded({ extended: true }));
 
 // Use authentication routes
 app.use('/api/auth', authRoutes); // Prefix all auth routes with /api/auth

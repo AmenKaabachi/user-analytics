@@ -48,3 +48,16 @@ export const getUserProfile = (userId) => {
     );
   });
 };
+
+export const resetPassword = (userId, newPassword) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      'UPDATE users SET password = ? WHERE id = ?',
+      [newPassword, userId],
+      (err, results) => {
+        if (err) return reject(err);
+        resolve(results);
+      }
+    );
+  });
+};

@@ -1,7 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
-import { Container, Row, Col, Card, Tabs, Tab, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Tabs, Tab, Modal, Button } from 'react-bootstrap';
 import axios from 'axios';
 import Navbar from '../../components/Navbar/Navbar';
+import EditProfileTab from './tabs/EditProfileTab/EditProfileTab';
+import ResetPasswordTab from './tabs/ResetPasswordTab/ResetPasswordTab';
+import ActivityLogTab from './tabs/ActivityLogTab/ActivityLogTab';
 import styles from './ProfilePage.module.css';
 
 import noAvatarImage from '../../assets/no-avatar.png';
@@ -19,6 +22,7 @@ function ProfilePage() {
     email: '',
     // avatar: null, // Commenting out avatar for now
   });
+  const [showModal, setShowModal] = useState(false); // State for modal visibility
 
   // 2. Fetch user profile data on page load
   useEffect(() => {
@@ -34,9 +38,14 @@ function ProfilePage() {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(response.data);
+        setEditForm({
+          companyName: response.data.company_name || '',
+          email: response.data.email || '',
+        });
       } catch (err) {
         console.error('Error fetching user profile:', err);
         setErrorMessage('Failed to load user profile.');
+        setTimeout(() => setErrorMessage(''), 7000); // Clear error message after 7 seconds
       }
     };
 
@@ -53,31 +62,46 @@ function ProfilePage() {
   };
 
   // 4. Handle form submission for editing profile
-  const handleEditSubmit = async (e) => {
-    e.preventDefault();
+  const handleEditSubmit = async (editForm) => {
+    if (!editForm.companyName.trim() || !editForm.email.trim()) {
+      setErrorMessage('Company Name and Email cannot be empty or just spaces.');
+      setTimeout(() => setErrorMessage(''), 7000); // Clear error message after 7 seconds
+      return;
+    }
+    setEditForm(editForm); // Set the editForm state
+    setShowModal(true); // Show the confirmation modal
+  };
+
+  // 5. Handle confirmation of changes
+  const handleConfirmChanges = async () => {
+    setShowModal(false); // Hide the confirmation modal
+
     try {
       const token = localStorage.getItem('token');
       if (!token) {
         setErrorMessage('No token found. Please log in again.');
+        setTimeout(() => setErrorMessage(''), 7000); // Clear error message after 7 seconds
         return;
       }
 
-      const formData = new FormData();
-      formData.append('company_name', editForm.companyName); // Use value from state
-      formData.append('email', editForm.email); // Use value from state
+      // Send JSON data instead of FormData
+      const requestBody = {
+        company_name: editForm.companyName,
+        email: editForm.email,
+      };
 
-      // Debugging output: log formData entries before the request
-      for (let [key, value] of formData.entries()) {
-        console.log(`FormData: ${key}: ${value}`);
-      }
+      console.log('Request Body:', requestBody); // Debugging the payload
 
-      // Ensure that the request is correctly formed and headers are set
-      const response = await axios.put('http://localhost:5000/api/auth/profile', formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.put(
+        'http://localhost:5000/api/auth/profile',
+        requestBody, // Send the JSON payload directly
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json', // Set Content-Type to JSON
+          },
+        }
+      );
 
       console.log('Response:', response); // Debugging the response
 
@@ -90,33 +114,29 @@ function ProfilePage() {
 
       // Set success message
       setSuccessMessage('Profile edited successfully!');
+      setTimeout(() => setSuccessMessage(''), 7000); // Clear success message after 7 seconds
       setErrorMessage(''); // Clear error message
-
     } catch (err) {
       console.error('Error updating profile:', err);
       setErrorMessage('Failed to update profile.');
+      setTimeout(() => setErrorMessage(''), 7000); // Clear error message after 7 seconds
       setSuccessMessage(''); // Clear success message in case of error
     }
   };
 
-  // 5. Handle input change for form fields
+  // 6. Handle input change for form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditForm({ ...editForm, [name]: value });
   };
 
-  // 6. Handle file change for avatar upload
+  // 7. Handle file change for avatar upload
   const handleFileChange = (e) => {
     setEditForm({ ...editForm, avatar: e.target.files[0] });
   };
 
   // Fix: Check and log editForm values before submission to ensure they are populated correctly
   console.log('Edit Form:', editForm); // Fix
-
-  // 7. Render error message if any
-  if (errorMessage) {
-    return <div className={styles.errorMessage}>{errorMessage}</div>;
-  }
 
   // 8. Render loading message if user data is not yet loaded
   if (!user) {
@@ -179,74 +199,28 @@ function ProfilePage() {
                     eventKey="editProfile"
                     title={<strong id="tab-title-editProfile">Edit Profile</strong>}
                   >
-                    <div className={styles.tabContent}>
-                      <Form onSubmit={handleEditSubmit}>
-                        <Form.Group controlId="formCompanyName">
-                          <Form.Label><strong>Company Name</strong></Form.Label>
-                          <Form.Control
-                            type="text"
-                            name="companyName"
-                            value={editForm.companyName}
-                            onChange={handleInputChange}
-                            required
-                          />
-                        </Form.Group>
-                        <Form.Group controlId="formEmail">
-                          <Form.Label><strong>Email</strong></Form.Label>
-                          <Form.Control
-                            type="email"
-                            name="email"
-                            value={editForm.email}
-                            onChange={handleInputChange}
-                            required
-                          />
-                        </Form.Group>
-                        {/* Commenting out avatar field for now */}
-                        {/* <Form.Group controlId="formAvatar">
-                          <Form.Label>Avatar</Form.Label>
-                          <Form.Control
-                            type="file"
-                            name="avatar"
-                            onChange={handleFileChange}
-                            accept="image/*"
-                          />
-                        </Form.Group> */}
-                        <Button variant="primary" type="submit" className="mt-3">
-                          Save Changes
-                        </Button>
-                        
-                        {/* Success or Error message */}
-                        {successMessage && (
-                          <div style={{ color: '#32CD32', fontSize: '16px', fontWeight: 'bold', marginTop: '10px' }}>
-                            {successMessage}
-                          </div>
-                        )}
-                        {errorMessage && (
-                          <div style={{ color: '#8B0000', fontSize: '16px', fontWeight: 'bold', marginTop: '10px' }}>
-                            {errorMessage}
-                          </div>
-                        )}
-                      </Form>
-                    </div>
+                    <EditProfileTab
+                      user={user}
+                      onSubmit={handleEditSubmit}
+                      successMessage={successMessage}
+                      errorMessage={errorMessage}
+                    />
                   </Tab>
 
-                  {/* Placeholder for other tabs */}
+                  {/* Reset Password Tab */}
                   <Tab
                     eventKey="resetPassword"
                     title={<strong id="tab-title-resetPassword">Reset Password</strong>}
                   >
-                    <div className={styles.tabContent}>
-                      <p>This section is under construction.</p>
-                    </div>
+                    <ResetPasswordTab />
                   </Tab>
 
+                  {/* Activity Log Tab */}
                   <Tab
                     eventKey="activityLog"
                     title={<strong id="tab-title-activityLog">Activity Log</strong>}
                   >
-                    <div className={styles.tabContent}>
-                      <p>This section is under construction.</p>
-                    </div>
+                    <ActivityLogTab />
                   </Tab>
                 </Tabs>
                 <div ref={underlineRef} className={styles.underline} />
@@ -255,8 +229,37 @@ function ProfilePage() {
           </Col>
         </Row>
       </Container>
+
+      {/* Confirmation Modal */}
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Changes</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Are you sure you want to make these changes?</p>
+          <p><strong>Company Name:</strong> {editForm.companyName}</p>
+          <p><strong>Email:</strong> {editForm.email}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleConfirmChanges}>
+            Confirm Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
+
+  // Function to show toast notification
+  function showToast(type, message) {
+    console.log('Showing toast:', type, message); // Debugging output
+    setToast({ show: true, type, message });
+    setTimeout(() => {
+      setToast({ show: false, type: '', message: '' });
+    }, 7000);
+  }
 }
 
 export default ProfilePage;

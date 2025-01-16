@@ -36,6 +36,8 @@ export const login = async (req, res) => {
 
 // Signup Logic
 export const signup = async (req, res) => {
+  console.log('Request Body:', req.body); // Log the entire request body for debugging
+
   const { companyName, email, password } = req.body; // Destructure company name, email, and password from request body
   console.log('Signup attempt:', email); // Log the email of the user trying to sign up
 
@@ -61,6 +63,7 @@ export const signup = async (req, res) => {
   }
 };
 
+
 // Update Profile Logic
 export const updateProfile = async (req, res) => {
   const userId = req.user.id; // Get the user ID from the token (authenticated user)
@@ -77,3 +80,37 @@ export const updateProfile = async (req, res) => {
     res.status(500).json({ message: 'Failed to update user profile.' }); // Return a server error response
   }
 };
+
+// Reset Password Logic
+export const resetPassword = async (req, res) => {
+  const userId = req.user.id; // Get the user ID from the token (authenticated user)
+  const { currentPassword, newPassword } = req.body; // Destructure current and new passwords from request body
+  console.log('Request Body:', req.body); // Log the entire request body
+  console.log('New Password:', newPassword); // Log the new password
+
+  if (!currentPassword || !newPassword) {
+    return res.status(400).json({ message: 'Current and new passwords are required' });
+  }
+
+  try {
+    // Use the userService to get the user profile
+    const users = await userService.getUserProfile(userId);
+    if (users.length === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const user = users[0];
+    // Check if the current password matches
+    if (currentPassword !== user.password) {
+      return res.status(400).json({ message: 'Current password is incorrect' });
+    }
+
+    // Use the userService to reset the user password
+    await userService.resetPassword(userId, newPassword);
+    res.json({ message: 'Password reset successfully.' }); // Respond with success message
+  } catch (error) {
+    console.error('Error resetting password:', error); // Log the error
+    res.status(500).json({ message: 'Failed to reset password.' }); // Return a server error response
+  }
+};
+

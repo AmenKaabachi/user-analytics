@@ -1,0 +1,15 @@
+.tabContent {
+  margin-top: 20px;
+}
+
+form {
+  margin-top: 2rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+}
