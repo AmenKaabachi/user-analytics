@@ -2,7 +2,7 @@
 .profilePage {
   padding-top: 5rem;
   background: var(--linearPrimarySecondary);
-  height: 40vh; /* Adjusted height of the gradient */
+  height: 80vh; /* Adjusted height of the gradient */
   margin-top: auto;
 }
 

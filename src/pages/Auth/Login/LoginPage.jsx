@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Container, Alert, Button, Form } from 'react-bootstrap';
-import { FaEnvelope, FaLock } from 'react-icons/fa';
+import { FaEnvelope, FaLock, FaUserCircle } from 'react-icons/fa'; // Import FaUserCircle
 import styles from './LoginPage.module.css';
 import axios from 'axios';
 
@@ -52,9 +52,8 @@ function LoginPage({ onLoginSuccess }) {
     <div className={styles.authPage}>
       <Container>
         <div className={styles.authWrapper}>
-          <h1 className={`text-center mb-4 ${styles.authTitle}`}>Welcome Back</h1>
           <div className="user-icon text-center mb-4">
-            <i className="fas fa-user-circle" style={{ fontSize: '4rem', color: 'var(--linearPrimaryAccent)' }}></i>
+          <FaUserCircle className={styles.userIcon} />
           </div>
 
           {/* Display Error Message if Present */}
@@ -62,34 +61,33 @@ function LoginPage({ onLoginSuccess }) {
 
           {/* Login Form */}
           <Form onSubmit={handleSubmit} className={styles.authForm}>
-          <Form.Group controlId="formEmail" className={styles.formGroup}>
-          <div className={`${styles.inputGroup}`}>
-            <FaEnvelope className={styles.icon} /> {/* Icon element */}
-            <Form.Control
-              type="email"
-              placeholder="Email Address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className={`${styles.formControl}`}
-            />
-          </div>
-        </Form.Group>
+            <Form.Group controlId="formEmail" className={styles.formGroup}>
+              <div className={`${styles.inputGroup}`}>
+                <FaEnvelope className={styles.icon} /> {/* Icon element */}
+                <Form.Control
+                  type="email"
+                  placeholder="Email Address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className={`${styles.formControl}`}
+                />
+              </div>
+            </Form.Group>
 
-        <Form.Group controlId="formPassword" className={styles.formGroup}>
-          <div className={`${styles.inputGroup}`}>
-            <FaLock className={styles.icon} /> {/* Icon element */}
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className={`${styles.formControl}`}
-            />
-          </div>
-        </Form.Group>
-
+            <Form.Group controlId="formPassword" className={styles.formGroup}>
+              <div className={`${styles.inputGroup}`}>
+                <FaLock className={styles.icon} /> {/* Icon element */}
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className={`${styles.formControl}`}
+                />
+              </div>
+            </Form.Group>
 
             {/* Submit Button */}
             <Button variant="primary" type="submit" className={styles.submitButton}>

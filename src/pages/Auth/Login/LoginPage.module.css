@@ -109,3 +109,8 @@
     font-size: 0.9rem; /* Smaller button text */
   }
 }
+
+.userIcon {
+  font-size: 4rem;
+  color: rgba(84, 8, 156, 0.675); /* Use the CSS variable */
+}
