@@ -6,7 +6,6 @@ import styles from './SignUpPage.module.css';
 import axios from 'axios';
 import signupImage from '../../../assets/signup-image.jpg'; // Import the image
 
-// Sign Up Page Component
 function SignUpPage() {
   // States for Form Input Fields and Error Messages
   const [companyName, setCompanyName] = useState('');
