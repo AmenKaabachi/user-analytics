@@ -1,13 +1,17 @@
+/* Profile Page Background and Layout */
 .profilePage {
   padding-top: 5rem;
-  background: linear-gradient(to bottom, rgba(33, 67, 228, 0.8), rgba(172, 139, 241, 0.8)), rgb(255, 255, 255);
-  height: 40vh; /* Increase the height of the gradient */
+  background: var(--linearPrimarySecondary);
+  height: 40vh; /* Adjusted height of the gradient */
+  margin-top: auto;
 }
 
+/* Profile Container Spacing */
 .profileContainer {
   margin-top: 5rem;
 }
 
+/* Profile Card Styling */
 .profileCard {
   border: none;
   background-color: #e6e6fa;
@@ -16,10 +20,15 @@
   margin-top: 5rem;
 }
 
+/* Tabs Section */
 .tabs .nav-tabs {
   display: flex;
   justify-content: flex-start;
   padding: 0;
+}
+
+.tabs .nav-item {
+  position: relative;
 }
 
 .tabs .nav-link {
@@ -28,20 +37,23 @@
   font-weight: normal;
   text-transform: none;
   position: relative;
+  color: var(--linearPrimaryAccent); /* Use gradient for text color */
 }
 
-.tabs .nav-item {
-  position: relative;
+.tabs .nav-link:hover {
+  color: var(--linearSecondaryAccent); /* Use gradient for hover text color */
 }
 
-.underline {
-  display: none; /* Remove the underline */
+.tabs .underline {
+  display: none; /* Removed underline */
 }
 
+/* Profile Content Layout */
 .profileContent {
   margin-top: 20px;
 }
 
+/* Avatar Section */
 .avatarSection {
   text-align: center;
 }
@@ -53,6 +65,7 @@
   margin-bottom: 20px;
 }
 
+/* Information Table Styling */
 .infoTable {
   width: 100%;
   border-collapse: collapse;
@@ -71,14 +84,35 @@
   background-color: #e2e6ea;
 }
 
+/* Information Section */
 .infoSection {
   padding-left: 20px;
 }
-form{
+
+/* Form Section */
+form {
   margin-top: 2rem;
 }
-input[type="text"]{
+
+input[type="text"], input[type="email"], input[type="file"] {
   width: 100%;
   padding: 10px;
   margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button[type="submit"] {
+  background: var(--linearPrimaryAccent); /* Use gradient for button background */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background: var(--linearSecondaryAccent); /* Use gradient for hover button background */
 }

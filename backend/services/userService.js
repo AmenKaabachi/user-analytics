@@ -61,3 +61,12 @@ export const resetPassword = (userId, newPassword) => {
     );
   });
 };
+
+export const deleteUser = (userId) => {
+  return new Promise((resolve, reject) => {
+    db.query('DELETE FROM users WHERE id = ?', [userId], (err, results) => {
+      if (err) return reject(err);
+      resolve(results);
+    });
+  });
+};

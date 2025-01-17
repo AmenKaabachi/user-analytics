@@ -22,12 +22,9 @@ export const login = async (req, res) => {
         // If password matches, generate a JWT token
         const token = jwt.sign({ id: user.id }, 'secretkey', { expiresIn: '1h' });
         return res.json({ message: 'Login successful', token, user }); // Respond with success and the token
-      } else {
-        return res.status(400).json({ message: 'Invalid credentials' }); // If password doesn't match, return an error
       }
-    } else {
-      return res.status(400).json({ message: 'User not found' }); // If no user is found, return an error
     }
+    return res.status(400).json({ message: 'Incorrect email or password' }); // If email or password is incorrect, return a consistent error message
   } catch (error) {
     console.error('Error during login:', error); // Log the error
     return res.status(500).json({ message: 'Server error' }); // Return a server error response
@@ -111,6 +108,20 @@ export const resetPassword = async (req, res) => {
   } catch (error) {
     console.error('Error resetting password:', error); // Log the error
     res.status(500).json({ message: 'Failed to reset password.' }); // Return a server error response
+  }
+};
+
+// Delete Profile Logic
+export const deleteProfile = async (req, res) => {
+  const userId = req.user.id; // Get the user ID from the token (authenticated user)
+
+  try {
+    // Use the userService to delete the user profile
+    await userService.deleteUser(userId);
+    res.json({ message: 'Profile deleted successfully.' }); // Respond with success message
+  } catch (error) {
+    console.error('Error deleting profile:', error); // Log the error
+    res.status(500).json({ message: 'Failed to delete profile.' }); // Return a server error response
   }
 };
 

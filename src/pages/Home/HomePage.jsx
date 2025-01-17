@@ -1,68 +1,80 @@
-import { Container, Row, Col, Card } from 'react-bootstrap'
-import { FaChartLine, FaUsers, FaClock } from 'react-icons/fa'
-import './HomePage.css'
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import { FaChartLine, FaUsers, FaClock } from 'react-icons/fa';
+import './HomePage.css';
 import analyticsDashboardImg from '../../assets/analytics-dashboard.png';
 import NeonButton from '../../components/NeonButton/NeonButton';
 import Navbar from '../../components/Navbar/Navbar'; // Import Navbar component
 import Footer from '../../components/Footer/Footer'; // Import Footer component
 
 function HomePage() {
+  /**
+   * Scrolls smoothly to the "Features" section.
+   * Ensures that the section exists in the DOM before attempting to scroll.
+   */
   const scrollToFeatures = () => {
-    const featuresSection = document.getElementById('features');
+    const featuresSection = document.getElementById('features'); // Get the Features section by ID
     if (featuresSection) {
-      featuresSection.scrollIntoView({ behavior: 'smooth' });
+      featuresSection.scrollIntoView({ behavior: 'smooth' }); // Smooth scroll to the Features section
+    } else {
+      console.error("Features section not found!"); // Log an error if the section is missing
     }
   };
 
-  
   return (
-    
     <div className="home-page">
-      <Navbar /> {/* Add Navbar component */}
+      {/* Navbar Component */}
+      <Navbar />
+
+      {/* Hero Section */}
       <section className="hero">
         <Container className="d-flex flex-column align-items-center justify-content-center text-center min-vh-100">
           <h1>Uncover User <span className="highlight_behave">Behavior</span> Through Data</h1>
           <p className="lead">
             Transform raw interactions into actionable insights that drive better product decisions.
           </p>
+          {/* Get Started Button */}
           <NeonButton onClick={scrollToFeatures} className="btn btn-primary mx-auto hero-button">Get Started</NeonButton>
           <img src={analyticsDashboardImg} alt="Analytics Dashboard" className="dashboard-image img-fluid mt-4" />
         </Container>
       </section>
 
+      {/* Features Section */}
       <section id="features" className="py-5">
         <Container>
           <h2 className="text-center mb-5">Key Features</h2>
           <Row>
+            {/* Feature 1 */}
             <Col md={4}>
               <Card className="feature-card">
                 <Card.Body className="text-center">
                   <FaChartLine className="feature-icon" />
                   <Card.Title>Real-time Analytics</Card.Title>
                   <Card.Text>
-                    Track user behavior and engagement in real-time with our powerful dashboard
+                    Track user behavior and engagement in real-time with our powerful dashboard.
                   </Card.Text>
                 </Card.Body>
               </Card>
             </Col>
+            {/* Feature 2 */}
             <Col md={4}>
               <Card className="feature-card">
                 <Card.Body className="text-center">
                   <FaUsers className="feature-icon" />
                   <Card.Title>User Insights</Card.Title>
                   <Card.Text>
-                    Understand your users better with detailed demographic and behavioral data
+                    Understand your users better with detailed demographic and behavioral data.
                   </Card.Text>
                 </Card.Body>
               </Card>
             </Col>
+            {/* Feature 3 */}
             <Col md={4}>
               <Card className="feature-card">
                 <Card.Body className="text-center">
                   <FaClock className="feature-icon" />
                   <Card.Title>Historical Data</Card.Title>
                   <Card.Text>
-                    Access and analyze historical data to identify trends and patterns
+                    Access and analyze historical data to identify trends and patterns.
                   </Card.Text>
                 </Card.Body>
               </Card>
@@ -71,10 +83,12 @@ function HomePage() {
         </Container>
       </section>
 
+      {/* Pricing Section */}
       <section id="pricing" className="py-5 bg-light">
         <Container>
           <h2 className="text-center mb-5">Pricing Plans</h2>
           <Row>
+            {/* Starter Plan */}
             <Col md={4}>
               <Card className="pricing-card">
                 <Card.Body className="text-center">
@@ -89,6 +103,7 @@ function HomePage() {
                 </Card.Body>
               </Card>
             </Col>
+            {/* Professional Plan */}
             <Col md={4}>
               <Card className="pricing-card featured">
                 <Card.Body className="text-center">
@@ -103,6 +118,7 @@ function HomePage() {
                 </Card.Body>
               </Card>
             </Col>
+            {/* Enterprise Plan */}
             <Col md={4}>
               <Card className="pricing-card">
                 <Card.Body className="text-center">
@@ -120,9 +136,11 @@ function HomePage() {
           </Row>
         </Container>
       </section>
-      <Footer /> {/* Add Footer component */}
+
+      {/* Footer Component */}
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;

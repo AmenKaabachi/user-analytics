@@ -37,12 +37,12 @@ function LoginPage({ onLoginSuccess }) {
         onLoginSuccess(); // Notify Parent Component (if needed)
         navigate('/profile'); // Navigate to Profile page
       } else {
-        setError(response.data.message || 'Invalid credentials.'); // Handle Login Errors
+        setError('Incorrect email or password'); // Handle Login Errors
       }
     } catch (err) {
       // Handle API or Network Errors
       console.error('Login error:', err);
-      setError('Something went wrong. Please try again.');
+      setError('Incorrect email or password'); // Display consistent error message
     }
   };
   

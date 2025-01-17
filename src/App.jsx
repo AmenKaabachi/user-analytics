@@ -8,7 +8,7 @@ import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Auth/Login/LoginPage';
 import SignUpPage from './pages/Auth/SignUp/SignUpPage';
 //import DashboardPage from '../../../Dashboards/coreui/src/views/dashboard/Dashboard';
-import DashboardPage from '../../../Dashboards/datta-able/src/views/dashboard/index';
+import DashboardPage from '../../../Dashboards/datta-able/src/views/dashboard';
 import ProfilePage from './pages/Profile/ProfilePage'; // Import ProfilePage component
 
 // Main App Component

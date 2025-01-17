@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
-import { Container, Row, Col, Card, Tabs, Tab, Modal, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Tabs, Tab, Modal, Button, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../../components/Navbar/Navbar';
 import EditProfileTab from './tabs/EditProfileTab/EditProfileTab';
@@ -10,7 +11,7 @@ import styles from './ProfilePage.module.css';
 import noAvatarImage from '../../assets/no-avatar.png';
 
 function ProfilePage() {
-  const underlineRef = useRef(null);
+  const navigate = useNavigate();
   
   // 1. State Management
   const [user, setUser] = useState(null);
@@ -23,6 +24,8 @@ function ProfilePage() {
     // avatar: null, // Commenting out avatar for now
   });
   const [showModal, setShowModal] = useState(false); // State for modal visibility
+  const [showDeleteModal, setShowDeleteModal] = useState(false); // State for delete confirmation modal
+  const [deleteSuccess, setDeleteSuccess] = useState(false); // State for delete success message
 
   // 2. Fetch user profile data on page load
   useEffect(() => {
@@ -55,9 +58,6 @@ function ProfilePage() {
   // 3. Handle tab selection for active tab navigation
   const handleTabSelect = (k) => {
     const tabTitle = document.getElementById(`tab-title-${k}`).getBoundingClientRect();
-    const underline = underlineRef.current;
-    underline.style.width = `${tabTitle.width}px`;
-    underline.style.transform = `translateX(${tabTitle.left}px)`;
     setKey(k);
   };
 
@@ -135,15 +135,37 @@ function ProfilePage() {
     setEditForm({ ...editForm, avatar: e.target.files[0] });
   };
 
+  // 8. Handle profile deletion
+  const handleDeleteProfile = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setErrorMessage('No token found. Please log in again.');
+        setTimeout(() => setErrorMessage(''), 7000); // Clear error message after 7 seconds
+        return;
+      }
+
+      await axios.delete('http://localhost:5000/api/auth/profile', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setDeleteSuccess(true); // Set delete success state
+    } catch (err) {
+      console.error('Error deleting profile:', err);
+      setErrorMessage('Failed to delete profile.');
+      setTimeout(() => setErrorMessage(''), 7000); // Clear error message after 7 seconds
+    }
+  };
+
   // Fix: Check and log editForm values before submission to ensure they are populated correctly
   console.log('Edit Form:', editForm); // Fix
 
-  // 8. Render loading message if user data is not yet loaded
+  // 9. Render loading message if user data is not yet loaded
   if (!user) {
     return <div className={styles.loadingMessage}>Loading...</div>;
   }
 
-  // 9. Render profile page UI
+  // 10. Render profile page UI
   return (
     <div className={`${styles.profilePage} mt-4`}>
       <Navbar />
@@ -161,7 +183,7 @@ function ProfilePage() {
                   {/* Profile Tab */}
                   <Tab
                     eventKey="profile"
-                    title={<strong id="tab-title-profile">Profile</strong>}
+                    title={<strong className="tabTitle" id="tab-title-profile">Profile</strong>}
                   >
                     <div className={styles.profileContent}>
                       <Row>
@@ -189,6 +211,13 @@ function ProfilePage() {
                               </tr>
                             </tbody>
                           </table>
+                          <Button
+                            variant="danger"
+                            className="mt-3"
+                            onClick={() => setShowDeleteModal(true)}
+                          >
+                            Delete Profile
+                          </Button>
                         </Col>
                       </Row>
                     </div>
@@ -197,7 +226,7 @@ function ProfilePage() {
                   {/* Edit Profile Tab */}
                   <Tab
                     eventKey="editProfile"
-                    title={<strong id="tab-title-editProfile">Edit Profile</strong>}
+                    title={<strong className="tabTitle" id="tab-title-editProfile">Edit Profile</strong>}
                   >
                     <EditProfileTab
                       user={user}
@@ -210,7 +239,7 @@ function ProfilePage() {
                   {/* Reset Password Tab */}
                   <Tab
                     eventKey="resetPassword"
-                    title={<strong id="tab-title-resetPassword">Reset Password</strong>}
+                    title={<strong className="tabTitle" id="tab-title-resetPassword">Reset Password</strong>}
                   >
                     <ResetPasswordTab />
                   </Tab>
@@ -218,12 +247,12 @@ function ProfilePage() {
                   {/* Activity Log Tab */}
                   <Tab
                     eventKey="activityLog"
-                    title={<strong id="tab-title-activityLog">Activity Log</strong>}
+                    title={<strong className="tabTitle" id="tab-title-activityLog">Activity Log</strong>}
                   >
                     <ActivityLogTab />
                   </Tab>
                 </Tabs>
-                <div ref={underlineRef} className={styles.underline} />
+                <div/>
               </Card.Body>
             </Card>
           </Col>
@@ -248,6 +277,30 @@ function ProfilePage() {
             Confirm Changes
           </Button>
         </Modal.Footer>
+      </Modal>
+
+      {/* Delete Confirmation Modal */}
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Profile</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {deleteSuccess ? (
+            <>
+              <p>Profile deleted successfully.</p>
+              <Button variant="primary" onClick={() => navigate('/')}>
+                Go to Home Page
+              </Button>
+            </>
+          ) : (
+            <>
+              <p>Are you sure you want to delete your profile?</p>
+              <Button variant="danger" onClick={handleDeleteProfile}>
+                Yes, Delete My Profile
+              </Button>
+            </>
+          )}
+        </Modal.Body>
       </Modal>
     </div>
   );

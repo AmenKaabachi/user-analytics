@@ -1,5 +1,5 @@
 import express from 'express';
-import { login, signup, updateProfile, resetPassword } from '../controllers/authController.js'; // Import the controller functions
+import { login, signup, updateProfile, resetPassword, deleteProfile } from '../controllers/authController.js'; // Import the controller functions
 import { authenticateToken } from '../middleware/authMiddleware.js'; // Import the authentication middleware
 import * as userService from '../services/userService.js'; // Import the user service
 
@@ -37,5 +37,8 @@ router.put('/profile', authenticateToken, (req, res, next) => {
 
 // Route to reset user password
 router.put('/reset-password', authenticateToken, resetPassword);
+
+// Route to delete user profile
+router.delete('/profile', authenticateToken, deleteProfile);
 
 export default router; // Export the router to be used in the main app
