@@ -1,0 +1,111 @@
+/* 1. General Styles for the Authentication Page */
+.authPage {
+  display: flex; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  justify-content: center; /* Ensure even spacing */
+  height: 100vh; /* Full height viewport */
+  background: var(--linearPrimarySecondary); /* Background gradient */
+}
+
+/* 2. Wrapper for the Form Container */
+.authWrapper {
+  background: white; /* White background for contrast */
+  padding: 2rem; /* Add padding around the content */
+  border-radius: 0.5rem; /* Rounded corners */
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%; /* Full width */
+  max-width: 400px; /* Restrict maximum width */
+  margin: auto; /* Center the container */
+}
+
+/* 3. Title Styles */
+.authTitle {
+  font-size: 2rem; /* Large font size for the title */
+  font-weight: bold; /* Bold title for emphasis */
+  color: var(--linearPrimaryAccent); /* Accent color for branding */
+  text-align: center; /* Center the title */
+  margin-bottom: 1.5rem; /* Add space below the title */
+}
+
+/* 4. Form Container */
+.authForm {
+  margin-top: 1rem; /* Add space between title and form */
+}
+
+/* 5. Input Group Styles */
+.inputGroup {
+  position: relative; /* To position icon relative to input */
+  display: flex;
+  align-items: center; /* Vertically align icon and input text */
+  margin-bottom: 1.5rem; /* Add space between input groups */
+}
+
+/* 6. Icon Styles */
+.inputGroup .icon {
+  position: absolute; /* Position icon inside the input field */
+  left: 1rem; /* Spacing from the left of the container */
+  font-size: 1.2rem; /* Adjust icon size */
+  color: var(--linearPrimaryAccent); /* Brand color */
+  pointer-events: none; /* Make icon non-interactive */
+  top: 37%; /* Center the icon vertically */
+  transform: translateY(-50%); /* Adjust for perfect vertical alignment */
+}
+
+/* 7. Input Field Styles */
+.inputGroup .formControl {
+  width: 100%; /* Full width of the container */
+  padding-left: 3rem; /* Add space for the icon on the left */
+  border: none; 
+  border-bottom: 2px solid rgba(140, 22, 166, 0.675); /* Custom underline */
+  font-size: 1rem; /* Consistent font size */
+  border-radius: 0; /* No border-radius */
+  height: 2.5rem; /* Adjust height for better alignment */
+  padding-top: 0.75rem; /* Add padding to lower the text inside the input */
+  padding-bottom: 0.75rem; /* Add padding to lower the text inside the input */
+}
+
+/* 8. Focus Styles */
+.inputGroup .formControl:focus {
+  box-shadow: none; /* Remove shadow on focus */
+  border-bottom: 2px solid var(--linearSecondaryAccent); /* Change underline color */
+}
+
+/* 9. Placeholder Text Alignment */
+.inputGroup .formControl::placeholder {
+  color: var(--textSecondary); /* Placeholder text color */
+  opacity: 1; /* Fully opaque for visibility */
+}
+
+/* 10. Submit Button Styles */
+.authForm .submitButton {
+  width: 100%; /* Full width button */
+  padding: 0.75rem; /* Padding for a clickable area */
+  background: var(--linearPrimaryAccent); /* Primary brand color */
+  border: none; /* Remove border */
+  color: white; /* White text for contrast */
+  font-size: 1rem; /* Button text size */
+  border-radius: 0.25rem; /* Slightly rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background 0.3s ease; /* Smooth background change on hover */
+  margin-top: 1rem; /* Add space above the button */
+}
+
+/* 11. Hover Effect for Button */
+.authForm .submitButton:hover {
+  background: var(--linearSecondaryAccent); /* Change background color */
+}
+
+/* 12. Media Query for Responsiveness (Optional) */
+@media (max-width: 768px) {
+  .authWrapper {
+    padding: 1.5rem; /* Adjust padding for smaller screens */
+  }
+
+  .authTitle {
+    font-size: 1.5rem; /* Slightly smaller title */
+  }
+
+  .submitButton {
+    font-size: 0.9rem; /* Smaller button text */
+  }
+}

@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Container, Alert, Button, Form } from 'react-bootstrap';
+import { FaEnvelope, FaLock } from 'react-icons/fa';
+import styles from './LoginPage.module.css';
 import axios from 'axios';
-import './LoginPage.css';
 
 // Login Page Component
 function LoginPage({ onLoginSuccess }) {
@@ -48,43 +49,63 @@ function LoginPage({ onLoginSuccess }) {
   
 
   return (
-    <div className="auth-page">
+    <div className={styles.authPage}>
       <Container>
-        <div className="auth-wrapper">
-          <h1 className="text-center mb-4">Welcome Back</h1>
+        <div className={styles.authWrapper}>
+          <h1 className={`text-center mb-4 ${styles.authTitle}`}>Welcome Back</h1>
+          <div className="user-icon text-center mb-4">
+            <i className="fas fa-user-circle" style={{ fontSize: '4rem', color: 'var(--linearPrimaryAccent)' }}></i>
+          </div>
 
           {/* Display Error Message if Present */}
           {error && <Alert variant="danger">{error}</Alert>}
 
           {/* Login Form */}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <Form onSubmit={handleSubmit} className={styles.authForm}>
+          <Form.Group controlId="formEmail" className={styles.formGroup}>
+          <div className={`${styles.inputGroup}`}>
+            <FaEnvelope className={styles.icon} /> {/* Icon element */}
+            <Form.Control
+              type="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className={`${styles.formControl}`}
+            />
+          </div>
+        </Form.Group>
 
-            <Form.Group controlId="formPassword" className="mt-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
+        <Form.Group controlId="formPassword" className={styles.formGroup}>
+          <div className={`${styles.inputGroup}`}>
+            <FaLock className={styles.icon} /> {/* Icon element */}
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className={`${styles.formControl}`}
+            />
+          </div>
+        </Form.Group>
+
 
             {/* Submit Button */}
-            <Button variant="primary" type="submit" className="w-100 mt-3">
+            <Button variant="primary" type="submit" className={styles.submitButton}>
               Log In
             </Button>
           </Form>
+
+          {/* Signup Link */}
+          <div className="text-center mt-3">
+            <p className="text-secondary mb-0">
+              Don't have an account?{' '}
+              <Link to="/signup" className="text-decoration-none text-primary">
+                Sign up
+              </Link>
+            </p>
+          </div>
         </div>
       </Container>
     </div>

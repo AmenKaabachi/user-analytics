@@ -1,6 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import './Footer.css';
+import styles from './Footer.module.css';
 
 function Footer() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ function Footer() {
   };
 
   return (
-    <footer id="footer" className="footer bg-light text-dark py-4">
+    <footer id="footer" className={`${styles.footer} bg-light text-dark py-4`}>
       <Container>
         <Row>
           <Col md={4}>

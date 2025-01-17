@@ -1,0 +1,144 @@
+.authPage {
+  padding-top: 76px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--linearPrimarySecondary);
+}
+
+.authWrapper {
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.authTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--linearPrimaryAccent);
+}
+
+.authForm {
+  margin-top: 1rem;
+}
+
+.authForm .formGroup {
+  margin-bottom: 1rem;
+}
+
+.authForm .formControl {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-bottom: 2px solid var(--linearPrimaryAccent);
+  border-radius: 0;
+  padding-left: 2.5rem; /* Add padding to make space for the icon */
+  padding-right: 2.5rem; /* Add padding to make space for the icon */
+}
+
+.authForm .formControl:focus {
+  box-shadow: none;
+  border-bottom: 2px solid var(--linearSecondaryAccent);
+}
+
+.authForm .submitButton {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--linearPrimaryAccent);
+  border: none;
+  color: white;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.authForm .submitButton:hover {
+  background: var(--linearSecondaryAccent);
+}
+
+.input-group-text {
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center; /* Align icon with text */
+  justify-content: center; /* Center the icon horizontally */
+  padding: 0.75rem; /* Adjust padding for alignment */
+  font-size: 1.2rem; /* Match font size with input text */
+  color: var(--linearPrimaryAccent); /* Icon color matching branding */
+}
+
+.input-group .input-group-prepend {
+  position: absolute; /* Absolute positioning within the input group */
+  top: 50%; /* Center vertically within the input field */
+  left: 0.5rem; /* Add space between icon and field */
+  transform: translateY(-50%); /* Perfect vertical centering */
+}
+
+.input-group .input-group-append {
+  position: absolute; /* Absolute positioning within the input group */
+  right: 0.5rem; /* Position icon to the right */
+  top: 50%; /* Center vertically within the input field */
+  transform: translateY(-50%); /* Perfect vertical centering */
+}
+
+.formControl {
+  border: none;
+  border-bottom: 2px solid var(--linearPrimaryAccent);
+  border-radius: 0;
+  padding-left: 2.5rem; /* Add padding to make space for the icon */
+  padding-right: 2.5rem; /* Add padding to make space for the icon */
+}
+
+.formControl:focus {
+  box-shadow: none;
+  border-bottom: 2px solid var(--linearSecondaryAccent);
+}
+
+/* 5. Input Group Styles */
+.inputGroup {
+  position: relative; /* To position icon relative to input */
+  display: flex;
+  align-items: center; /* Vertically align icon and input text */
+  margin-bottom: 1.5rem; /* Add space between input groups */
+}
+
+/* 6. Icon Styles */
+.inputGroup .icon {
+  position: absolute; /* Position icon inside the input field */
+  left: 1rem; /* Spacing from the left of the container */
+  font-size: 1.2rem; /* Adjust icon size */
+  color: var(--linearPrimaryAccent); /* Brand color */
+  pointer-events: none; /* Make icon non-interactive */
+  top: 37%; /* Center the icon vertically */
+  transform: translateY(-50%); /* Adjust for perfect vertical alignment */
+}
+
+/* 7. Input Field Styles */
+.inputGroup .formControl {
+  width: 100%; /* Full width of the container */
+  padding-left: 3rem; /* Add space for the icon on the left */
+  border: none; 
+  border-bottom: 2px solid rgba(140, 22, 166, 0.675); /* Custom underline */
+  font-size: 1rem; /* Consistent font size */
+  border-radius: 0; /* No border-radius */
+  height: 2.5rem; /* Adjust height for better alignment */
+  padding-top: 0.75rem; /* Add padding to lower the text inside the input */
+  padding-bottom: 0.75rem; /* Add padding to lower the text inside the input */
+}
+
+/* 8. Focus Styles */
+.inputGroup .formControl:focus {
+  box-shadow: none; /* Remove shadow on focus */
+  border-bottom: 2px solid var(--linearSecondaryAccent); /* Change underline color */
+}
+
+/* 9. Placeholder Text Alignment */
+.inputGroup .formControl::placeholder {
+  color: var(--textSecondary); /* Placeholder text color */
+  opacity: 1; /* Fully opaque for visibility */
+}

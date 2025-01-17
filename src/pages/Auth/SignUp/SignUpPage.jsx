@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Container, Alert, Button, Form } from 'react-bootstrap';
+import { FaEnvelope, FaLock, FaBuilding } from 'react-icons/fa';
+import styles from './SignUpPage.module.css';
 import axios from 'axios';
-import './SignUpPage.css';
 
 // Sign Up Page Component
 function SignUpPage() {
@@ -49,10 +50,13 @@ function SignUpPage() {
   };
 
   return (
-    <div className="auth-page">
+    <div className={styles.authPage}>
       <Container>
-        <div className="auth-wrapper">
-          <h1 className="text-center mb-4">Create an Account</h1>
+        <div className={styles.authWrapper}>
+          <h1 className={`text-center mb-4 ${styles.authTitle}`}>Create an Account</h1>
+          <div className="user-icon text-center mb-4">
+            <i className="fas fa-user-circle" style={{ fontSize: '4rem', color: 'var(--linearPrimaryAccent)' }}></i>
+          </div>
 
           {/* Display Error Message if Present */}
           {error && <Alert variant="danger">{error}</Alert>}
@@ -60,45 +64,64 @@ function SignUpPage() {
           {success && <Alert variant="success">{success}</Alert>}
 
           {/* Sign Up Form */}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formCompanyName">
-              <Form.Label>Company Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter company name"
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-                required
-              />
+          <Form onSubmit={handleSubmit} className={styles.authForm}>
+            <Form.Group controlId="formCompanyName" className={styles.formGroup}>
+              <div className={`${styles.inputGroup}`}>
+                <FaBuilding className={styles.icon} /> {/* Icon element */}
+                <Form.Control
+                  type="text"
+                  placeholder="Company Name"
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  required
+                  className={`${styles.formControl}`}
+                />
+              </div>
             </Form.Group>
 
-            <Form.Group controlId="formEmail" className="mt-3">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+            <Form.Group controlId="formEmail" className={styles.formGroup}>
+              <div className={`${styles.inputGroup}`}>
+                <FaEnvelope className={styles.icon} /> {/* Icon element */}
+                <Form.Control
+                  type="email"
+                  placeholder="Email Address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className={`${styles.formControl}`}
+                />
+              </div>
             </Form.Group>
 
-            <Form.Group controlId="formPassword" className="mt-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+            <Form.Group controlId="formPassword" className={styles.formGroup}>
+              <div className={`${styles.inputGroup}`}>
+                <FaLock className={styles.icon} /> {/* Icon element */}
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className={`${styles.formControl}`}
+                />
+              </div>
             </Form.Group>
 
             {/* Submit Button */}
-            <Button variant="primary" type="submit" className="w-100 mt-3">
+            <Button variant="primary" type="submit" className={styles.submitButton}>
               Sign Up
             </Button>
           </Form>
+
+          {/* Login Link */}
+          <div className="text-center mt-3">
+            <p className="text-secondary mb-0">
+              Already have an account?{' '}
+              <Link to="/login" className="text-decoration-none text-primary">
+                Log in
+              </Link>
+            </p>
+          </div>
         </div>
       </Container>
     </div>

@@ -3,32 +3,32 @@
     display: flex;
     align-items: center; /* Align items vertically */
     justify-content: space-between; /* Space between logo and links */
-    padding: 0.5rem 1rem; /* Add padding around navbar */
-    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 0.2rem 0.4rem; /* Reduced padding for a smaller navbar */
+    box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.1); /* Subtle shadow */
     font-weight: bold;
 }
 
 /* 2. Navbar Title Styling */
 .navbarTitle {
     font-weight: 700;
-    font-size: 1.8rem; /* Adjusted size */
+    font-size: 1.5rem; /* Reduced size for smaller navbar */
     background: var(--linearPrimaryAccent); /* Gradient background */
     -webkit-background-clip: text; /* Clip gradient to text */
     -webkit-text-fill-color: transparent; /* Transparent text for gradient */
-    margin-left: 0.5rem; /* Space between logo and title */
+    margin-left: 0.3rem; /* Space between logo and title */
 }
 
 /* 3. Logo Styling */
 .siteLogo {
-    height: 3rem; /* Adjusted logo size */
+    height: 2.5rem; /* Reduced logo size */
     max-height: 100%; /* Prevent overflow */
 }
 
 /* 4. Links Styling */
 .navbarBrand, .navLink {
     color: rgb(33, 67, 228) !important; /* Primary color for text */
-    font-size: 1rem; /* Adjusted size */
-    margin: 0 1rem; /* Spacing between links */
+    font-size: 0.9rem; /* Adjusted size for smaller navbar */
+    margin: 0 0.8rem; /* Reduced spacing between links */
     text-align: center;
 }
 
@@ -40,8 +40,8 @@
 .btnPrimary {
     background: var(--linearPrimaryAccent) !important; /* Gradient background */
     border: none;
-    font-size: 1rem; /* Adjusted size */
-    padding: 0.5rem 1rem; /* Inner spacing */
+    font-size: 0.9rem; /* Adjusted size */
+    padding: 0.4rem 0.8rem; /* Reduced inner spacing */
     transition: background 0.3s ease; /* Smooth transition */
     color: white !important; /* White font color */
 }
@@ -53,8 +53,8 @@
 /* Log In Link Styling */
 .navLinkLogin {
     color: rgb(33, 67, 228) !important; /* Primary color for text */
-    font-size: 1rem; /* Adjusted size */
-    margin: 0 1rem; /* Spacing between links */
+    font-size: 0.9rem; /* Adjusted size */
+    margin: 0 0.8rem; /* Reduced spacing between links */
     text-align: center;
     text-decoration: none; /* Remove underline */
     align-self: center; /* Align with Sign Up button */
@@ -64,17 +64,19 @@
     color: rgb(171, 95, 236) !important; /* Hover color */
 }
 
+/* Hamburger Menu Styling */
 .hamburgerMenu {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 2rem;
-    height: 1.4rem;
+    width: 1.8rem; /* Reduced width for smaller button */
+    height: 1.2rem; /* Reduced height for smaller button */
     cursor: pointer;
-    margin-top: 1.4rem;
+    margin-top: 1rem;
 }
+
 .hamburgerMenu .bar {
-    height: 0.25rem; /* Thinner bars */
+    height: 0.2rem; /* Thinner bars */
     background: linear-gradient(to right, rgb(171, 95, 236), rgb(33, 67, 228)); /* Gradient for bars */
     transition: all 0.3s ease; /* Smooth transition */
 }
@@ -86,14 +88,15 @@
 /* 7. Dropdown Styling */
 .customDropdown {
     position: relative;
-    display: inline-block; /* Keep dropdown inline */
+    display: inline-block;
 }
 
 .customDropdown .dropdown-menu {
     display: none; /* Hidden by default */
     position: absolute;
-    top: 100%;
-    left: -50%; /* Center align below button */
+    top: 100%; /* Positioned closer to the hamburger menu */
+    transform: translateY(-0.5rem); /* Slight upward adjustment */
+    left: -0.5rem; /* Positioned closer to the button */
     z-index: 1050;
     background-color: white; /* Dropdown background */
     box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1); /* Subtle shadow */
@@ -107,7 +110,7 @@
 }
 
 .customDropdown .dropdownItem {
-    padding: 0.5rem 1rem; /* Spacing for items */
+    padding: 0.4rem 0.8rem; /* Reduced spacing for smaller items */
     text-align: left;
     color: rgb(33, 67, 228); /* Item text color */
     transition: background 0.3s ease; /* Smooth hover effect */
@@ -121,7 +124,7 @@
 /* 8. Dropdown Divider */
 .customDropdown .dropdownDivider {
     height: 1px;
-    margin: 0.5rem 0;
+    margin: 0.4rem 0; /* Reduced spacing for smaller navbar */
     background-color: #e9ecef; /* Subtle divider color */
 }
 
